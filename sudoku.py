@@ -71,7 +71,52 @@ def start_screen():
         pygame.display.update()
 
 def in_progress():
-    pass
+    start_board = Board(WIDTH, HEIGHT, screen, difficulty)
+    start_board.draw() #later
+
+    #initialize font
+    button_font = pygame.font.Font(None, 80)
+    #initialize background
+    screen.fill((255, 255, 255))
+
+    #initialize text for reset, restart, exit buttons
+    reset_text = button_font.render("Reset", 0, (255, 255, 255))  # 30empty
+    restart_text = button_font.render("Restart", 0, (255, 255, 255))  # 40empty
+    exit_text = button_font.render("Exit", 0, (255, 255, 255))  # 50empty
+
+    #makes the surfaces for the reset, reset and exit buttons
+    reset_surface = pygame.Surface((reset_text.get_size()[0] + 20, reset_text.get_size()[1] + 20))
+    reset_surface.fill((255, 176, 0))
+    reset_surface.blit(reset_text, (10, 10))
+    restart_surface = pygame.Surface((restart_text.get_size()[0] + 20, restart_text.get_size()[1] + 20))
+    restart_surface.fill((255, 176, 0))
+    restart_surface.blit(restart_text, (10, 10))
+    exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
+    exit_surface.fill((255, 176, 0))
+    exit_surface.blit(exit_text, (10, 10))
+    reset_rectangle = reset_surface.get_rect(center=(WIDTH // 2 - 209, HEIGHT // 2 + 230))
+    restart_rectangle = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 230))
+    exit_rectangle = exit_surface.get_rect(center=(WIDTH // 2 + 190, HEIGHT // 2 + 230))
+
+    #glues the surfaces to the rects to make sure they are visible on play
+    screen.blit(reset_surface, reset_rectangle)
+    screen.blit(restart_surface, restart_rectangle)
+    screen.blit(exit_surface, exit_rectangle)
+
+    # Menu logic
+    while True:
+        for event in pygame.event.get():  # essentially waits for user to input something
+            if event.type == pygame.QUIT:  # If Escape, exit game
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:  # Checks which button you press
+                if reset_rectangle.collidepoint(event.pos):
+                    return  # change later
+                elif restart_rectangle.collidepoint(event.pos):
+                    start_screen()
+                    return
+                elif exit_rectangle.collidepoint(event.pos):
+                    return False
+        pygame.display.update()
 
 def game_won():
 
@@ -103,10 +148,10 @@ def game_won():
     while True:
         for event in pygame.event.get():  #waits for user to input something
             if event.type == pygame.QUIT:  #if escape, exit game
-                sys.exit()
+                return False  # exits main "While True" loop
             if event.type == pygame.MOUSEBUTTONDOWN:  #checks for exit button press
                 if win_rectangle.collidepoint(event.pos):
-                    sys.exit() #exit
+                    return False #exits main "While True" loop
 
         pygame.display.update()
 
@@ -140,20 +185,22 @@ def game_over():
     while True:
         for event in pygame.event.get():  #waits for user to input something
             if event.type == pygame.QUIT:  #if escape, exit game
-                sys.exit()
+                return False  # exits main "While True" loop
             if event.type == pygame.MOUSEBUTTONDOWN:  #checks for restart button press
                 if end_rectangle.collidepoint(event.pos):
-                    start_screen() #back to title screen
+                    return False #exits main "While True" loop
 
         pygame.display.update()
 
-
 def main():
 
-    game_won() #reposition later; just to check visuals
     start_screen()
-    start_board = Board(WIDTH, HEIGHT, screen, difficulty)
-    start_board.draw() #later
+    while True:
+        in_progress()
+    game_won() #reposition later; just to check
+    game_over() #reposition later; just to check
+    sys.exit()
+
 
 if __name__ == "__main__":
     main()
