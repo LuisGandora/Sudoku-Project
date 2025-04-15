@@ -33,22 +33,25 @@ def start_screen():
 
 
     #All of this makes the surfaces for the start and quit button
-    start_surface = pygame.Surface((Easy_text.get_size()[0]+20, Easy_text.get_size()[1] + 20))
-    start_surface.fill((255,176,0))
-    start_surface.blit(Easy_text, (10,10))
-    start_surface = pygame.Surface((Medium_text.get_size()[0]+20, Medium_text.get_size()[1] + 20))
-    start_surface.fill((255,176,0))
-    start_surface.blit(Medium_text, (10,10))
-    quit_surface = pygame.Surface((Hard_text.get_size()[0] + 20, Hard_text.get_size()[1]+20))
-    quit_surface.fill((255,176,0))
-    quit_surface.blit(Hard_text, (10,10))
-    start_rectangle = start_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +50))
-    quit_rectangle = quit_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +150))
+    easy_surface = pygame.Surface((Easy_text.get_size()[0]+20, Easy_text.get_size()[1] + 20))
+    easy_surface.fill((255,176,0))
+    easy_surface.blit(Easy_text, (10,10))
+    Medium_surface = pygame.Surface((Medium_text.get_size()[0]+20, Medium_text.get_size()[1] + 20))
+    Medium_surface.fill((255,176,0))
+    Medium_surface.blit(Medium_text, (10,10))
+    Hard_surface = pygame.Surface((Hard_text.get_size()[0] + 20, Hard_text.get_size()[1]+20))
+    Hard_surface.fill((255,176,0))
+    Hard_surface.blit(Hard_text, (10,10))
+    Easy_rectangle = easy_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +50))
+    Medium_rectangle = Medium_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +150))
+    Hard_rectangle = Hard_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +200))
 
 
     #Essentially glues the surfaces to the rects to make sure they are visible on play
-    screen.blit(start_surface, start_rectangle)
-    screen.blit(quit_surface, quit_rectangle)
+    screen.blit(easy_surface, Easy_rectangle)
+    screen.blit(Medium_surface, Medium_rectangle)
+    screen.blit(Hard_surface, Hard_rectangle)
+    
 
     #Menu logic
     while True:
@@ -56,15 +59,18 @@ def start_screen():
             if event.type == pygame.QUIT: #If Escape, exit game
                 sys.exit()
             if event.type ==pygame.MOUSEBUTTONDOWN: #Checks which button you press
-                if start_rectangle.collidepoint(event.pos):
+                if Easy_rectangle.collidepoint(event.pos):
                     return #change later
-                elif quit_rectangle.collidepoint(event.pos):
+                elif Medium_rectangle.collidepoint(event.pos):
+                    return
+                elif Hard_rectangle.collidepoint(event.pos):
                     sys.exit()
         pygame.display.update()
 
 def main():
 
     start_screen()
+    print("Main")
     #testing wth is going on
     s = generate_sudoku(9,0) 
 
