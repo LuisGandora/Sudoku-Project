@@ -66,7 +66,6 @@ class SudokuGenerator:
             if(self.board[row][i] == num):
                 return False
         return True
-        pass
 
     '''
 	Determines if num is contained in the specified column (vertical) of the board
@@ -79,16 +78,9 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_col(self, col, num):
-        for i in range(0, len(self.board)): #Theoretically go through each item in a cow
-            if(len(self.board[i]) <1): #temp base case
-                continue
-            if(len(self.board[i]) <= col):
-                continue
-            if(i == len(self.board)):
-                break
-            if(self.board[i][col] == num): 
+        for i in range(len(self.board)):  # Loop through each row
+            if self.board[i][col] == num:
                 return False
-            
         return True
 
     '''
@@ -151,17 +143,14 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_box(self, row_start, col_start): #Theoretically should always run because diagonal thang
-        end_row = row_start + 3
-        end_col = col_start+3
-        i = row_start
-        while i < end_row:
-            j = col_start
-            while j < end_col:
-                randomValue = int(random.randrange(1,10)) #Genearate a random number value from 1-9
-                if(self.is_valid(i, j, randomValue)):
-                    self.board[i][j] = randomValue #temp
-                    j+=1
-            i+=1
+        nums = list(range(1, 10))
+        random.shuffle(nums)  # Shuffle to get random order
+
+        index = 0
+        for i in range(row_start, row_start + 3):
+            for j in range(col_start, col_start + 3):
+                self.board[i][j] = nums[index]
+                index += 1
 
     
     '''
@@ -244,15 +233,15 @@ class SudokuGenerator:
         print(i)
         print("Run")
         self.print_board()
-        for j in range(i, -1):
-            x = int(random.randrange(0,9))
-            y = int(random.randrange(0,9))
-            if(self.is_valid(x, y, 0)):
-                self.board[x][y] = 0
-                j-=1
-            else:
-                j+=1
-        
+        while i > 0:
+            x= list(range(0, 9))
+            random.shuffle(x)  # Shuffle to get random order
+            y = list(range(0, 9))
+            random.shuffle(y)  # Shuffle to get random order
+
+            if(self.board[x[0]][y[0]] != 0):
+                self.board[x[0]][y[0]] = 0
+                i-=1
 
 '''
 DO NOT CHANGE
@@ -273,12 +262,8 @@ def generate_sudoku(size, removed):
     sudoku = SudokuGenerator(size, removed)
     sudoku.fill_values()
     board = sudoku.get_board() #Solution generated
+    sudoku.print_board()
     sudoku.remove_cells() # call self.removed
     board = sudoku.get_board()
     return board    
 
-sudoku = SudokuGenerator(9, 190)
-sudoku.fill_values()
-sudoku.fill_remaining(0, sudoku.box_length)
-sudoku.print_board()
-print(generate_sudoku(9, 10))
