@@ -16,8 +16,8 @@ def start_screen():
 
 
     #initialize font
-    start_title = pygame.font.Font(None, 100) 
-    button_font = pygame.font.Font(None, 100)
+    start_title = pygame.font.Font(None, 200)
+    button_font = pygame.font.Font(None, 80)
     #initialize background
     screen.fill((255,255,255))
     #Initialize Title
@@ -41,9 +41,9 @@ def start_screen():
     Hard_surface = pygame.Surface((Hard_text.get_size()[0] + 20, Hard_text.get_size()[1]+20))
     Hard_surface.fill((255,176,0))
     Hard_surface.blit(Hard_text, (10,10))
-    Easy_rectangle = easy_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +50))
-    Medium_rectangle = Medium_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +150))
-    Hard_rectangle = Hard_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +200))
+    Easy_rectangle = easy_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +5))
+    Medium_rectangle = Medium_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +105))
+    Hard_rectangle = Hard_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +205))
 
 
     #Essentially glues the surfaces to the rects to make sure they are visible on play
