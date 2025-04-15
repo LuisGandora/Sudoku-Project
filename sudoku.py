@@ -22,7 +22,7 @@ def start_screen():
     #initialize background
     screen.blit(title_image, title_image.get_rect(topleft=(0, 0)))
     #Initialize Title
-    title_surface = start_title.render("Sudoku", 0, (255,176,0))
+    title_surface = start_title.render("Sudoku", 0, 'white')
     title_rectangle = title_surface.get_rect(center =(WIDTH//2, HEIGHT//2 - 150))
     screen.blit(title_surface, title_rectangle)
 
@@ -34,13 +34,13 @@ def start_screen():
 
     #All of this makes the surfaces for the start and quit button
     easy_surface = pygame.Surface((Easy_text.get_size()[0]+20, Easy_text.get_size()[1] + 20))
-    easy_surface.fill((255,176,0))
+    easy_surface.fill('palevioletred1')
     easy_surface.blit(Easy_text, (10,10))
     Medium_surface = pygame.Surface((Medium_text.get_size()[0]+20, Medium_text.get_size()[1] + 20))
-    Medium_surface.fill((255,176,0))
+    Medium_surface.fill('palevioletred1')
     Medium_surface.blit(Medium_text, (10,10))
     Hard_surface = pygame.Surface((Hard_text.get_size()[0] + 20, Hard_text.get_size()[1]+20))
-    Hard_surface.fill((255,176,0))
+    Hard_surface.fill('palevioletred1')
     Hard_surface.blit(Hard_text, (10,10))
     Easy_rectangle = easy_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +5))
     Medium_rectangle = Medium_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +105))
