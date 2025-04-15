@@ -1,6 +1,8 @@
 import pygame, sys
 from pygame.locals import *
 from board import *
+from sudoku_generator import *
+from cell import *
 
 #Initialize
 pygame.init()
@@ -25,16 +27,21 @@ def start_screen():
     screen.blit(title_surface, title_rectangle)
 
     #initialize text for start and quit button
-    start_text = button_font.render("Start", 0, (255,255,255))
-    end_text = button_font.render("Quit", 0, (255,255,255))
+    Easy_text = button_font.render("Easy", 0, (255,255,255)) #30empty
+    Medium_text = button_font.render("Medium", 0, (255,255,255))#40empty
+    Hard_text = button_font.render("Hard", 0, (255,255,255))#50empty
+
 
     #All of this makes the surfaces for the start and quit button
-    start_surface = pygame.Surface((start_text.get_size()[0]+20, start_text.get_size()[1] + 20))
+    start_surface = pygame.Surface((Easy_text.get_size()[0]+20, Easy_text.get_size()[1] + 20))
     start_surface.fill((255,176,0))
-    start_surface.blit(start_text, (10,10))
-    quit_surface = pygame.Surface((end_text.get_size()[0] + 20, end_text.get_size()[1]+20))
+    start_surface.blit(Easy_text, (10,10))
+    start_surface = pygame.Surface((Medium_text.get_size()[0]+20, Medium_text.get_size()[1] + 20))
+    start_surface.fill((255,176,0))
+    start_surface.blit(Medium_text, (10,10))
+    quit_surface = pygame.Surface((Hard_text.get_size()[0] + 20, Hard_text.get_size()[1]+20))
     quit_surface.fill((255,176,0))
-    quit_surface.blit(end_text, (10,10))
+    quit_surface.blit(Hard_text, (10,10))
     start_rectangle = start_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +50))
     quit_rectangle = quit_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +150))
 
@@ -58,7 +65,8 @@ def start_screen():
 def main():
 
     start_screen()
-    print("Main run")   
+    #testing wth is going on
+    s = generate_sudoku(9,0) 
 
 if __name__ == "__main__":
     main()

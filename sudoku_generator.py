@@ -5,7 +5,7 @@ This was adapted from a GeeksforGeeks article "Program for Sudoku Generator" by 
 https://www.geeksforgeeks.org/program-sudoku-generator/
 
 """
-
+#Ask me in real life Im so done with this project
 class SudokuGenerator:
     '''
 	create a sudoku board - initialize class variables and set up the 2D board
@@ -23,7 +23,10 @@ class SudokuGenerator:
 	None
     '''
     def __init__(self, row_length, removed_cells):
-        pass
+        self.row_length = row_length #would be 9
+        self.removed_cells = removed_cells
+        self.board = [[],[],[], [],[],[], [],[],[]] #think since its a 9x9 grid, 3x3 big square double array should be board? 
+        self.box_length = math.sqrt(row_length)
 
     '''
 	Returns a 2D python list of numbers which represents the board
@@ -32,7 +35,7 @@ class SudokuGenerator:
 	Return: list[list]
     '''
     def get_board(self):
-        pass
+        return self.board
 
     '''
 	Displays the board to the console
@@ -42,6 +45,9 @@ class SudokuGenerator:
 	Return: None
     '''
     def print_board(self):
+        for i in range(self.board):
+            for j in range(self.board[0]):
+                print(self.board[i][j])
         pass
 
     '''
@@ -108,7 +114,9 @@ class SudokuGenerator:
 
 	Return: None
     '''
-    def fill_box(self, row_start, col_start):
+    def fill_box(self, row_start, col_start): #recursive call cause im cool
+        if(row_start == 2 and col_start== 2):
+            return
         pass
     
     '''
@@ -118,8 +126,10 @@ class SudokuGenerator:
 	Parameters: None
 	Return: None
     '''
-    def fill_diagonal(self):
-        pass
+    def fill_diagonal(self): #Literrally Diagnonal Filled: 
+        self.fill_box(0,0)
+        self.fill_box(4,4)
+        self.fill_box(8,8)
 
     '''
     DO NOT CHANGE
