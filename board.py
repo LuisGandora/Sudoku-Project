@@ -2,12 +2,13 @@ from sudoku_generator import *
 from cell import *
 
 class Board:
-    def __init__(self, width, height, screen, difficulty):
+    def __init__(self, width, height, screen, difficulty): #I believe should call sudoku generator here
         self.width = width
         self.height = height
         self.screen = screen
         self.difficulty = difficulty
-
+        self.board = generate_sudoku(9, difficulty) #passed in value
+        
     def draw(self):
         #to do later 
         print("draw")

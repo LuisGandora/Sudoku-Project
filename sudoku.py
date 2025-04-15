@@ -1,8 +1,6 @@
 import pygame, sys
 from pygame.locals import *
 from board import *
-from sudoku_generator import *
-from cell import *
 
 #Initialize
 pygame.init()
@@ -10,6 +8,7 @@ WIDTH = 800
 HEIGHT = 600
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+difficulty = 30 
 
 #https://www.youtube.com/watch?v=U9H60qtw0Yg tutorial I followed
 def start_screen():
@@ -60,19 +59,21 @@ def start_screen():
                 sys.exit()
             if event.type ==pygame.MOUSEBUTTONDOWN: #Checks which button you press
                 if Easy_rectangle.collidepoint(event.pos):
+                    difficulty = 30
                     return #change later
                 elif Medium_rectangle.collidepoint(event.pos):
+                    difficulty = 40
                     return
                 elif Hard_rectangle.collidepoint(event.pos):
-                    sys.exit()
+                    difficulty = 50
+                    
         pygame.display.update()
 
 def main():
 
     start_screen()
-    print("Main")
-    #testing wth is going on
-    s = generate_sudoku(9,0) 
+    start_board = Board(WIDTH, HEIGHT, screen, difficulty)
+    start_board.draw() #later
 
 if __name__ == "__main__":
     main()
