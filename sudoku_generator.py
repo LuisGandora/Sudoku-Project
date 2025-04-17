@@ -230,9 +230,6 @@ class SudokuGenerator:
     '''
     def remove_cells(self):
         i = self.removed_cells
-        print(i)
-        print("Run")
-        self.print_board()
         while i > 0:
             x= list(range(0, 9))
             random.shuffle(x)  # Shuffle to get random order
@@ -262,8 +259,8 @@ def generate_sudoku(size, removed):
     sudoku = SudokuGenerator(size, removed)
     sudoku.fill_values()
     board = sudoku.get_board() #Solution generated
-    sudoku.print_board()
     sudoku.remove_cells() # call self.removed
     board = sudoku.get_board()
     return board    
+
 

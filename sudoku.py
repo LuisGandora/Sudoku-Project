@@ -1,6 +1,7 @@
 import pygame, sys
 from pygame.locals import *
 from board import *
+from sudoku_generator import *
 
 #Initialize
 pygame.init()
@@ -58,19 +59,19 @@ def start_screen():
         for event in pygame.event.get(): #essentially waits for user to input something
             if event.type == pygame.QUIT: #If Escape, exit game
                 sys.exit()
+                return 30
             if event.type ==pygame.MOUSEBUTTONDOWN: #Checks which button you press
                 if Easy_rectangle.collidepoint(event.pos):
-                    difficulty = 30
-                    return #change later
+                    return 30#change later
                 elif Medium_rectangle.collidepoint(event.pos):
-                    difficulty = 40
-                    return
+                    return 40
                 elif Hard_rectangle.collidepoint(event.pos):
-                    difficulty = 50
+                    return 50
                     
         pygame.display.update()
 
 def in_progress():
+    
     start_board = Board(WIDTH, HEIGHT, screen, difficulty)
     start_board.draw() #later
 
@@ -112,10 +113,9 @@ def in_progress():
                 if reset_rectangle.collidepoint(event.pos):
                     return  # change later
                 elif restart_rectangle.collidepoint(event.pos):
-                    start_screen()
                     return
                 elif exit_rectangle.collidepoint(event.pos):
-                    return False
+                    sys.exit()
         pygame.display.update()
 
 def game_won():
@@ -194,13 +194,14 @@ def game_over():
 
 def main():
 
-    start_screen()
     while True:
+        difficulty = start_screen()
         in_progress()
-    game_won() #reposition later; just to check
-    game_over() #reposition later; just to check
+        game_won() #reposition later; just to check
+        game_over() #reposition later; just to check
     sys.exit()
 
 
 if __name__ == "__main__":
     main()
+        

@@ -7,7 +7,7 @@ class Board:
         self.height = height
         self.screen = screen
         self.difficulty = difficulty
-        self.board = generate_sudoku(9, difficulty) #passed in value
+        self.board = None #passed in value
         
     def draw(self):
         #to do later 
