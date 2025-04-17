@@ -1,5 +1,7 @@
 from sudoku_generator import *
 from cell import *
+import pygame, sys
+from pygame.locals import *
 
 class Board:
     def __init__(self, width, height, screen, difficulty): #I believe should call sudoku generator here
@@ -10,8 +12,12 @@ class Board:
         self.board = None #passed in value
         
     def draw(self):
-        #to do later 
-        print("draw")
+
+        for i in range(1,9):
+            pygame.draw.line(self.screen, "black", (i * (self.width//9), 0),(i * (self.width//9),550), 1)
+        for j in range(1,10):
+            pygame.draw.line(self.screen, "black", (0,j * 60),(800,j * 60), 1)
+        pygame.display.flip()
 
     def select(self, row, col):
         #to do later

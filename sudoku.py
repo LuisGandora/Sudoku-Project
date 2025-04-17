@@ -44,7 +44,7 @@ def start_screen():
     Hard_surface.fill('palevioletred1')
     Hard_surface.blit(Hard_text, (10,10))
     Easy_rectangle = easy_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +5))
-    Medium_rectangle = Medium_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +105))
+    Medium_rectangle = Medium_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +105)) ##RECOMMEND CHANGING TO WIDTH BASED INSTEAD like -109,105 0,105 and 109,105
     Hard_rectangle = Hard_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +205))
 
 
@@ -73,10 +73,10 @@ def start_screen():
 def in_progress():
     
     start_board = Board(WIDTH, HEIGHT, screen, difficulty)
-    start_board.draw() #later
+    
 
     #initialize font
-    button_font = pygame.font.Font(None, 80)
+    button_font = pygame.font.Font(None, 40)
     #initialize background
     screen.fill((255, 255, 255))
 
@@ -95,9 +95,9 @@ def in_progress():
     exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
     exit_surface.fill((255, 176, 0))
     exit_surface.blit(exit_text, (10, 10))
-    reset_rectangle = reset_surface.get_rect(center=(WIDTH // 2 - 209, HEIGHT // 2 + 230))
-    restart_rectangle = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 230))
-    exit_rectangle = exit_surface.get_rect(center=(WIDTH // 2 + 190, HEIGHT // 2 + 230))
+    reset_rectangle = reset_surface.get_rect(center=(WIDTH // 2 - 209, HEIGHT // 2 + 275))
+    restart_rectangle = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 275))
+    exit_rectangle = exit_surface.get_rect(center=(WIDTH // 2 + 190, HEIGHT // 2 + 275))
 
     #glues the surfaces to the rects to make sure they are visible on play
     screen.blit(reset_surface, reset_rectangle)
@@ -106,6 +106,7 @@ def in_progress():
 
     # Menu logic
     while True:
+        start_board.draw() #later
         for event in pygame.event.get():  # essentially waits for user to input something
             if event.type == pygame.QUIT:  # If Escape, exit game
                 sys.exit()
@@ -199,7 +200,6 @@ def main():
         in_progress()
         game_won() #reposition later; just to check
         game_over() #reposition later; just to check
-    sys.exit()
 
 
 if __name__ == "__main__":
