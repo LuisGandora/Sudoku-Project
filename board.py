@@ -17,6 +17,10 @@ class Board:
             pygame.draw.line(self.screen, "black", (i * (self.width//9), 0),(i * (self.width//9),550), 1)
         for j in range(1,10):
             pygame.draw.line(self.screen, "black", (0,j * 60),(800,j * 60), 1)
+        for k in range(len(self.board)):
+            for n in range(len(self.board[0])):
+                tempGameObject = Cell(self.board[k][n],(n * self.width//9)+45, (k *60)+30, self.screen)
+                tempGameObject.draw()
         pygame.display.flip()
 
     def select(self, row, col):
@@ -43,9 +47,9 @@ class Board:
         #to do later
         return True
     
-    def update_board():
-        #to do layer
-        print("Updated board")
+    def update_board(self):
+        self.draw()
+
 
     def find_empty(self):
         #to do later

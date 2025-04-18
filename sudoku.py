@@ -62,7 +62,8 @@ def start_screen():
                 return 30
             if event.type ==pygame.MOUSEBUTTONDOWN: #Checks which button you press
                 if Easy_rectangle.collidepoint(event.pos):
-                    return 30#change later
+                    return 30
+                    #change later
                 elif Medium_rectangle.collidepoint(event.pos):
                     return 40
                 elif Hard_rectangle.collidepoint(event.pos):
@@ -73,6 +74,7 @@ def start_screen():
 def in_progress():
     
     start_board = Board(WIDTH, HEIGHT, screen, difficulty)
+    start_board.board = generate_sudoku(9, start_board.difficulty)
     
 
     #initialize font
@@ -103,10 +105,10 @@ def in_progress():
     screen.blit(reset_surface, reset_rectangle)
     screen.blit(restart_surface, restart_rectangle)
     screen.blit(exit_surface, exit_rectangle)
-
+    print(start_board.board)
     # Menu logic
     while True:
-        start_board.draw() #later
+        start_board.update_board() #later
         for event in pygame.event.get():  # essentially waits for user to input something
             if event.type == pygame.QUIT:  # If Escape, exit game
                 sys.exit()
