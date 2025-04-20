@@ -10,6 +10,13 @@ HEIGHT = 600
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 difficulty = 30 
+clickedCords  = (0,0)
+activeClick = False
+
+#universal button
+reset_board_button = pygame.Rect(0,0,0,0)   
+reset_button = pygame.Rect(0,0,0,0)
+quit_button = pygame.Rect(0,0,0,0)
 
 #https://www.youtube.com/watch?v=U9H60qtw0Yg tutorial I followed
 def start_screen():
@@ -71,12 +78,8 @@ def start_screen():
                     
         pygame.display.update()
 
-def in_progress():
-    
-    start_board = Board(WIDTH, HEIGHT, screen, difficulty)
-    start_board.board = generate_sudoku(9, start_board.difficulty)
-    
-
+def in_progress_menu():
+    global reset_board_button, reset_button, quit_button
     #initialize font
     button_font = pygame.font.Font(None, 40)
     #initialize background
@@ -97,28 +100,64 @@ def in_progress():
     exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
     exit_surface.fill((255, 176, 0))
     exit_surface.blit(exit_text, (10, 10))
-    reset_rectangle = reset_surface.get_rect(center=(WIDTH // 2 - 209, HEIGHT // 2 + 275))
-    restart_rectangle = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 275))
-    exit_rectangle = exit_surface.get_rect(center=(WIDTH // 2 + 190, HEIGHT // 2 + 275))
+    reset_board_button = reset_surface.get_rect(center=(WIDTH // 2 - 209, HEIGHT // 2 + 275))
+    reset_button = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 275))
+    quit_button = exit_surface.get_rect(center=(WIDTH // 2 + 190, HEIGHT // 2 + 275))
 
     #glues the surfaces to the rects to make sure they are visible on play
-    screen.blit(reset_surface, reset_rectangle)
-    screen.blit(restart_surface, restart_rectangle)
-    screen.blit(exit_surface, exit_rectangle)
+    screen.blit(reset_surface, reset_board_button)
+    screen.blit(restart_surface, reset_button)
+    screen.blit(exit_surface, quit_button)
+
+def in_progress():
+    global activeClick
+    print("InProgress")
+    start_board = Board(WIDTH, HEIGHT, screen, difficulty)
+    start_board.board = generate_sudoku(9, start_board.difficulty)
+    
+    #Highly recommend switching to Universal reset_text 
+    in_progress_menu()
     print(start_board.board)
     # Menu logic
+    print("Ran")
+    print(reset_board_button)
     while True:
         start_board.update_board() #later
+        
         for event in pygame.event.get():  # essentially waits for user to input something
             if event.type == pygame.QUIT:  # If Escape, exit game
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:  # Checks which button you press
-                if reset_rectangle.collidepoint(event.pos):
+                if reset_board_button.collidepoint(event.pos):
                     return  # change later
-                elif restart_rectangle.collidepoint(event.pos):
+                elif reset_button.collidepoint(event.pos):
                     return
-                elif exit_rectangle.collidepoint(event.pos):
+                elif quit_button.collidepoint(event.pos):
                     sys.exit()
+                elif start_board.click(event.pos[0], event.pos[1]) != False:
+                    in_progress_menu()
+                    clickedCords = start_board.click(event.pos[0],event.pos[1])
+                    start_board.select(clickedCords[0], clickedCords[1])
+                    x = (clickedCords[0]//(start_board.width//9))
+                    y =(clickedCords[1]//60)
+                    print(x)
+                    print(y)
+                    print(start_board.board[x][y])
+                    if(start_board.board[x][y] == 0):
+                        activeClick = True
+                        print("Activated")
+                
+                    
+                else:
+                    sys.exit()
+            if event.type == pygame.KEYDOWN and activeClick:
+                temp = event.key-48
+                if(temp > 0 and temp < 10 and activeClick):
+                    start_board.place_number(temp)
+                    activeClick = False
+                    start_board.draw()
+                    print("Commited")
+                    
         pygame.display.update()
 
 def game_won():
@@ -130,7 +169,7 @@ def game_won():
     button_font = pygame.font.Font(None, 80)
     #initialize background
     screen.blit(win_image, win_image.get_rect(topleft=(0, 0)))
-    #initialize game_over
+    #initialize game_over   
     win_surface = win_text.render("Game Won <3", 0, (255,176,0))
     win_rectangle = win_surface.get_rect(center =(WIDTH//2, HEIGHT//2 - 150))
     screen.blit(win_surface, win_rectangle)
@@ -196,7 +235,6 @@ def game_over():
         pygame.display.update()
 
 def main():
-
     while True:
         difficulty = start_screen()
         in_progress()
