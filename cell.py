@@ -17,7 +17,7 @@ class Cell:
         else:
             cell_text = cell_font.render(" ", 0, 'black')
         cell_surface = Surface((30,30))
-        cell_surface.fill("lightpink")
+        cell_surface.fill("thistle2")
         cell_surface.blit(cell_text, cell_text.get_rect(center=(15,15)))
         cell_rectangle = cell_surface.get_rect(center=(self.row, self.col))
         self.screen.blit(cell_surface,cell_rectangle)
@@ -30,7 +30,7 @@ class Cell:
         else:
             cell_text = cell_font.render(" ", 0, 'black')
         cell_surface = Surface((30,30))
-        cell_surface.fill("lightpink")
+        cell_surface.fill("thistle2")
         cell_surface.blit(cell_text, cell_text.get_rect(center=(15,15)))
         cell_rectangle = cell_surface.get_rect(center=(self.row, self.col))
         self.screen.blit(cell_surface,cell_rectangle)
