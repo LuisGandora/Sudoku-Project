@@ -20,7 +20,7 @@ class Board:
             pygame.draw.line(self.screen, "black", (0,j * 60),(800,j * 60), 1)
         for k in range(len(self.board[0])):
             for n in range(len(self.board)):
-                tempGameObject = Cell(self.board[k][n],(n * self.width//9)+45, (k *60)+30, self.screen)
+                tempGameObject = Cell(self.board[n][k],(n * self.width//9)+45, (k *60)+30, self.screen)
                 tempGameObject.draw()
         pygame.display.flip()
 
@@ -33,13 +33,14 @@ class Board:
         pygame.draw.line(self.screen, "red", (x,y), (x+90,y), 5)
         pygame.draw.line(self.screen, "red", (x,y+60), (x+90,y+60), 5)
         pygame.display.update() #work on later
+        print(self.board)
 
 
     #Not sure if its suppose to be bool return or none return
     def click(self, row, col):
         global x,y  
         x = (row//(self.width//9))
-        y =(col//60)
+        y = (col//60)
         if(x < len(self.board)):
             if(y < len(self.board[0])):
                 return (row, col)
