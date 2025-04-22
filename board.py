@@ -15,8 +15,12 @@ class Board:
 
     def draw(self):
         for i in range(0, 10):
-            pygame.draw.line(self.screen, "black", (200+(i * 40), 100+0), (200+(i * 40), 100+360))
-            pygame.draw.line(self.screen, "black", (200+0, 100+ i * 40), (200+360, 100+i * 40))
+            if i == 0 or i == 3 or i == 6 or i == 9:
+                line_width = 3
+            else:
+                line_width = 1
+            pygame.draw.line(self.screen, "black", (200+(i * 40), 100+0), (200+(i * 40), 100+360), line_width)
+            pygame.draw.line(self.screen, "black", (200+0, 100+ i * 40), (200+360, 100+i * 40), line_width)
         for j in range(len(self.board[0])):
             for k in range(len(self.board)):
                 tempGameObject = Cell(self.board[j][k], (k * 40) + 220, (j * 40) + 120, self.screen)
