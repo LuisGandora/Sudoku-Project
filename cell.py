@@ -13,17 +13,16 @@ class Cell:
         self.set_cell_value(value)  
         self.draw()
 
-    def draw(self):
-        cell_font = font.Font(None, 40)
+    def draw(self,color="black"):
+        cell_font = font.Font(None, 35)
         if(self.value > 0):
-            cell_text = cell_font.render(f"{self.value}", 0, 'red')
+            cell_text = cell_font.render(f"{self.value}", 0, 'black')
         else:
-            cell_text = cell_font.render(" ", 0, 'red')
-        cell_surface = Surface((cell_text.get_size()[0]+30, cell_text.get_size()[1]+30))
-        cell_surface.blit(cell_text, (10,10))
+            cell_text = cell_font.render(" ", 0, 'black')
+        cell_surface = Surface((30,30))
+        cell_surface.fill("lightpink")
+        cell_surface.blit(cell_text, cell_text.get_rect(center=(15,15)))
         cell_rectangle = cell_surface.get_rect(center=(self.row, self.col))
         self.screen.blit(cell_surface,cell_rectangle)
-        display.flip()
-
     
     

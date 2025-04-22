@@ -11,28 +11,28 @@ class Board:
         self.screen = screen
         self.difficulty = difficulty
         self.board = None #passed in value
-        
-    def draw(self):
+        self.board = None #passed in value
 
-        for i in range(1,9):
-            pygame.draw.line(self.screen, "black", (i * (self.width//9), 0),(i * (self.width//9),550), 1)
-        for j in range(1,10):
-            pygame.draw.line(self.screen, "black", (0,j * 60),(800,j * 60), 1)
-        for k in range(len(self.board[0])):
-            for n in range(len(self.board)):
-                tempGameObject = Cell(self.board[k][n],(n * self.width//9)+45, (k *60)+30, self.screen)
+    def draw(self):
+        for i in range(0, 10):
+            pygame.draw.line(self.screen, "black", (200+(i * 40), 100+0), (200+(i * 40), 100+360))
+            pygame.draw.line(self.screen, "black", (200+0, 100+ i * 40), (200+360, 100+i * 40))
+        for j in range(len(self.board[0])):
+            for k in range(len(self.board)):
+                tempGameObject = Cell(self.board[j][k], (k * 40) + 220, (j * 40) + 120, self.screen)
                 tempGameObject.draw()
-        pygame.display.flip()
+        pygame.display.flip() #my attempt at improving
 
     def select(self, row, col):
         self.draw()
-        x = (row//(self.width//9)) * (self.width//9)
-        y =(col//60) * 60
-        pygame.draw.line(self.screen, "red", (x,y), (x,y+60), 5)
-        pygame.draw.line(self.screen, "red", (x+90,y), (x+90,y+60), 5)
-        pygame.draw.line(self.screen, "red", (x,y), (x+90,y), 5)
-        pygame.draw.line(self.screen, "red", (x,y+60), (x+90,y+60), 5)
-        pygame.display.update() #work on later
+        x = 200 + ((row-200)//40) * 40
+        y = 100 + ((col-100)//40) * 40
+        if 200<=x<=520 and 100<=y<=420:
+            pygame.draw.line(self.screen, "red", (x,y), (x,y+40), 5)
+            pygame.draw.line(self.screen, "red", (x+40,y), (x+40,y+40), 5)
+            pygame.draw.line(self.screen, "red", (x,y), (x+40,y), 5)
+            pygame.draw.line(self.screen, "red", (x,y+40), (x+40,y+40), 5)
+            pygame.display.update() #my attempt at improving
 
 
     #Not sure if its suppose to be bool return or none return
