@@ -83,7 +83,7 @@ def in_progress_menu():
     #initialize font
     button_font = pygame.font.Font(None, 40)
     #initialize background
-    screen.fill((255, 255, 255))
+    screen.fill(("lightpink"))
 
     #initialize text for reset, restart, exit buttons
     reset_text = button_font.render("Reset", 0, (255, 255, 255))  # 30empty
@@ -92,17 +92,17 @@ def in_progress_menu():
 
     #makes the surfaces for the reset, reset and exit buttons
     reset_surface = pygame.Surface((reset_text.get_size()[0] + 20, reset_text.get_size()[1] + 20))
-    reset_surface.fill((255, 176, 0))
+    reset_surface.fill("palevioletred1")
     reset_surface.blit(reset_text, (10, 10))
     restart_surface = pygame.Surface((restart_text.get_size()[0] + 20, restart_text.get_size()[1] + 20))
-    restart_surface.fill((255, 176, 0))
+    restart_surface.fill("palevioletred1")
     restart_surface.blit(restart_text, (10, 10))
     exit_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
-    exit_surface.fill((255, 176, 0))
+    exit_surface.fill("palevioletred1")
     exit_surface.blit(exit_text, (10, 10))
-    reset_board_button = reset_surface.get_rect(center=(WIDTH // 2 - 209, HEIGHT // 2 + 275))
-    reset_button = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 275))
-    quit_button = exit_surface.get_rect(center=(WIDTH // 2 + 190, HEIGHT // 2 + 275))
+    reset_board_button = reset_surface.get_rect(center=(WIDTH // 2 - 209, HEIGHT // 2 + 225))
+    reset_button = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 225))
+    quit_button = exit_surface.get_rect(center=(WIDTH // 2 + 190, HEIGHT // 2 + 225))
 
     #glues the surfaces to the rects to make sure they are visible on play
     screen.blit(reset_surface, reset_board_button)
@@ -170,7 +170,7 @@ def game_won():
     #initialize background
     screen.blit(win_image, win_image.get_rect(topleft=(0, 0)))
     #initialize game_over   
-    win_surface = win_text.render("Game Won <3", 0, (255,176,0))
+    win_surface = win_text.render("Game Won <3", 0, "white")
     win_rectangle = win_surface.get_rect(center =(WIDTH//2, HEIGHT//2 - 150))
     screen.blit(win_surface, win_rectangle)
 
@@ -179,7 +179,7 @@ def game_won():
 
     #surface for the restart button
     win_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
-    win_surface.fill((255, 176, 0))
+    win_surface.fill("palevioletred1")
     win_surface.blit(exit_text, (10, 10))
     win_rectangle = win_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 5))
 
@@ -207,7 +207,7 @@ def game_over():
     #initialize background
     screen.blit(end_image, end_image.get_rect(topleft=(0, 0)))
     #initialize game_over
-    end_surface = end_text.render("Game Over </3", 0, (255,176,0))
+    end_surface = end_text.render("Game Over </3", 0, "white")
     end_rectangle = end_surface.get_rect(center =(WIDTH//2, HEIGHT//2 - 150))
     screen.blit(end_surface, end_rectangle)
 
@@ -216,7 +216,7 @@ def game_over():
 
     #surface for the restart button
     end_surface = pygame.Surface((restart_text.get_size()[0] + 20, restart_text.get_size()[1] + 20))
-    end_surface.fill((255, 176, 0))
+    end_surface.fill("palevioletred1")
     end_surface.blit(restart_text, (10, 10))
     end_rectangle = end_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 5))
 
