@@ -139,12 +139,14 @@ def in_progress():
                     sys.exit()
                 elif start_board.click(event.pos[0], event.pos[1]) != False:
                     in_progress_menu()
+                   
+                    activeClick = False
                     clickedCords = start_board.click(event.pos[0],event.pos[1])
-                    start_board.select(clickedCords[0], clickedCords[1])
+                    currentCell = Cell(0, (clickedCords[0]* 40) + 220, (clickedCords[1] * 40) + 120, start_board.screen)
                     x = ((clickedCords[0]-200)//40) 
-                    y = ((clickedCords[1]-100)//40) 
-                    clickedCords = (x, y)
+                    y = ((clickedCords[1]-100)//40)
                     if(start_board.board[y][x] == 0):
+                        start_board.select(clickedCords[0], clickedCords[1])
                         activeClick = True
                         print("Activated")
                 

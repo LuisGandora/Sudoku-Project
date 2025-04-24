@@ -229,17 +229,28 @@ class SudokuGenerator:
 	Return: None
     '''
     def remove_cells(self):
-        i = self.removed_cells
-        while i > 0:
-            x= list(range(0, 9))
-            random.shuffle(x)  # Shuffle to get random order
-            y = list(range(0, 9))
-            random.shuffle(y)  # Shuffle to get random order
-
-            if(self.board[x[0]][y[0]] != 0):
-                self.board[x[0]][y[0]] = 0
-                i-=1
-            i-=1
+        i = 0
+        x= list(range(0, 9))
+        random.shuffle(x)  # Shuffle to get random order
+        y = list(range(0, 9))
+        random.shuffle(y)  # Shuffle to get random order
+        indexX = 0
+        indexY = 0
+        while i < self.removed_cells:
+            if(self.board[x[indexX]][y[indexY]] != 0):
+                self.board[x[indexX]][y[indexY]] = 0
+                i+=1
+            elif(indexX < len(x)-1 and indexY < len(y)-1):
+                indexX +=1
+                indexY += 1
+            else:
+                print("REset")
+                random.shuffle(x)
+                random.shuffle(y)
+                indexX = 0
+                indexY =0 
+            if(i >= self.removed_cells):
+                break
 
 '''
 DO NOT CHANGE
