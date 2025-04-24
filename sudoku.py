@@ -23,7 +23,7 @@ quit_button = pygame.Rect(0,0,0,0)
 #https://www.youtube.com/watch?v=U9H60qtw0Yg tutorial I followed
 def start_screen():
 
-
+#hatsune miku :3
     orig_image = pygame.image.load("cherry blueson.jpg")
     title_image = pygame.transform.scale(orig_image, (800,600))
     #initialize font
@@ -56,7 +56,7 @@ def start_screen():
     Medium_rectangle = Medium_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +105)) ##RECOMMEND CHANGING TO WIDTH BASED INSTEAD like -109,105 0,105 and 109,105
     Hard_rectangle = Hard_surface.get_rect(center=(WIDTH //2, HEIGHT //2 +205))
 
-
+    #board stuff
     #Essentially glues the surfaces to the rects to make sure they are visible on play
     screen.blit(easy_surface, Easy_rectangle)
     screen.blit(Medium_surface, Medium_rectangle)
@@ -172,7 +172,7 @@ def in_progress():
                         return False
                     
         pygame.display.update()
-
+# yay you win!!!!
 def game_won():
 
     orig_image = pygame.image.load("cherry blueson.jpg")
@@ -209,7 +209,7 @@ def game_won():
                     return False #exits main "While True" loop
 
         pygame.display.update()
-
+# lmao loser
 def game_over():
 
     orig_image = pygame.image.load("cherry blueson.jpg")
