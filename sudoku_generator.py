@@ -239,7 +239,7 @@ class SudokuGenerator:
             if(self.board[x[0]][y[0]] != 0):
                 self.board[x[0]][y[0]] = 0
                 i-=1
-            i-=1
+
 
 '''
 DO NOT CHANGE

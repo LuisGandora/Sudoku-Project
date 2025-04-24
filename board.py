@@ -35,7 +35,7 @@ class Board:
         y = 100 + ((col-100)//40) * 40
         print(self.board)
         if 200<=x<=520 and 100<=y<=420:
-            pygame.draw.line(self.screen, "red", (x,y), (x,y+40), 5)
+            pygame.draw.line(self.screen, "indianred", (x,y), (x,y+40), 5)
             pygame.draw.line(self.screen, "indianred", (x+40,y), (x+40,y+40), 5)
             pygame.draw.line(self.screen, "indianred", (x,y), (x+40,y), 5)
             pygame.draw.line(self.screen, "indianred", (x,y+40), (x+40,y+40), 5)
@@ -59,7 +59,10 @@ class Board:
     def clear(self):
         #to do later
         print("Clear val")
-        
+
+    def sketch(self, value):
+        #later
+
     def place_number(self, value):
         self.board[y][x] = value
         self.draw()
