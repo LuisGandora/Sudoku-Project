@@ -81,7 +81,7 @@ def start_screen():
         pygame.display.update()
 
 def in_progress_menu():
-    global reset_board_button, reset_button, quit_button
+    global reset_board_button, reset_button, quit_button, currentCell
     #initialize font
     button_font = pygame.font.Font(None, 40)
     #initialize background
@@ -112,7 +112,7 @@ def in_progress_menu():
     screen.blit(exit_surface, quit_button)
 
 def in_progress():
-    global activeClick, currentCell
+    global activeClick, currentCell, clickedCords
     print("InProgress")
     start_board = Board(WIDTH, HEIGHT, screen, difficulty)
     start_board.board = generate_sudoku(9, start_board.difficulty)
@@ -124,7 +124,7 @@ def in_progress():
     print("Ran")
     print(reset_board_button)
     while True:
-        start_board.update_board() #later
+        start_board.update_board()
         if(currentCell != None):
             currentCell.draw()
         for event in pygame.event.get():  # essentially waits for user to input something
@@ -157,7 +157,7 @@ def in_progress():
                 temp = event.key-48
                 #adding a cell board
                 if(temp > 0 and temp < 10 and activeClick):
-                    currentCell = Cell(temp, (clickedCords[0]* 40) + 220, (clickedCords[1] * 40) + 120, start_board.screen)
+                    currentCell.set_cell_value(temp)
                     currentCell.draw()
                     start_board.draw()
                     print("Commited")
@@ -166,6 +166,10 @@ def in_progress():
                     currentCell = None
                     activeClick = False
                     start_board.draw()
+                    if(start_board.is_full()):
+                        if(start_board.check_board()):
+                            return True
+                        return False
                     
         pygame.display.update()
 
@@ -246,9 +250,11 @@ def game_over():
 def main():
     while True:
         difficulty = start_screen()
-        in_progress()
-        game_won() #reposition later; just to check
-        game_over() #reposition later; just to check
+        won = in_progress()
+        if(won):
+            game_won() #reposition later; just to check
+        else:
+            game_over() #reposition later; just to check
 
 
 if __name__ == "__main__":

@@ -251,6 +251,7 @@ class SudokuGenerator:
                 indexY =0 
             if(i >= self.removed_cells):
                 break
+            i+=1
 
 '''
 DO NOT CHANGE
