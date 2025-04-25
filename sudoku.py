@@ -203,7 +203,8 @@ def in_progress(difficulty):
                     start_board.draw()
                     print("Commited")
                 if event.key == pygame.K_RETURN and activeClick:
-                    start_board.place_number(currentCell.value)
+                    if(currentCell != None):
+                        start_board.place_number(currentCell.value)
                     currentCell = None
                     activeClick = False
                     start_board.draw()
