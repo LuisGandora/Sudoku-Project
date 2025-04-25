@@ -159,8 +159,7 @@ def in_progress(difficulty):
                 temp = event.key - 48
                 # adding a cell board
                 if (temp > 0 and temp < 10 and activeClick):
-                    currentCell = Cell(temp, 200 + ((clickedCords[0]-200)//40) * 40+20, 100 + ((clickedCords[1]-100)//40) * 40+20,
-                                       start_board.screen)
+                    currentCell = Cell(temp, 200 + ((clickedCords[0]-200)//40) * 40+20, 100 + ((clickedCords[1]-100)//40) * 40+20, start_board.screen)
                     currentCell.draw()
                     start_board.draw()
                     print("Commited")
@@ -169,8 +168,8 @@ def in_progress(difficulty):
                     currentCell = None
                     activeClick = False
                     start_board.draw()
-                    if start_board.is_valid() is False:
-                        return "Game Lost"
+                    if start_board.is_full() is True and start_board.check_board() is False:
+                        return "Game Over"
 
                     if start_board.is_full() is True and start_board.check_board() is True:
                         return "Game Won"
@@ -248,16 +247,19 @@ def game_over():
             if event.type == pygame.MOUSEBUTTONDOWN:  # checks for restart button press
                 if end_rectangle.collidepoint(event.pos):
                     return False  # exits main "While True" loop
-
         pygame.display.update()
 
 
 def main():
     while True:
         difficulty = start_screen()
-        in_progress(difficulty)
-        if in_progress(difficulty) == "restart":
+        game_state = in_progress(difficulty)
+        if game_state == "restart":
             continue
+        elif game_state == "Game Won":
+            game_won()
+        elif game_state == "Game Over":
+            game_over()
 
 
 if __name__ == "__main__":
