@@ -164,14 +164,16 @@ def in_progress(difficulty):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:  # Checks which button you press
                 if reset_board_button.collidepoint(event.pos):
-                    start_board.board = [row[:] for row in original_board]
-                    currentCell = None
-                    activeClick = False
-                    start_board.draw()
+                    # start_board.board = [row[:] for row in original_board]
+                    # currentCell = None
+                    # activeClick = False
+                    # start_board.draw()
+                    return "Game Over"
                 elif restart_button.collidepoint(event.pos):
                     return "restart"
                 elif quit_button.collidepoint(event.pos):
-                    sys.exit()
+                    return "Game Won"
+                    # sys.exit()
                 elif start_board.click(event.pos[0], event.pos[1]) != False:
                     in_progress_menu()
                     clickedCords = start_board.click(event.pos[0], event.pos[1])
@@ -218,7 +220,7 @@ def in_progress(difficulty):
 
 
 def game_won():
-    orig_image = pygame.image.load("cherry blosoom.jpg")
+    orig_image = pygame.image.load("bike.webp")
     win_image = pygame.transform.scale(orig_image, (800, 600))
     miku4 = pygame.image.load("sakura miku 4.png")
     miku4_img = pygame.transform.scale(miku4, (300, 400))
@@ -228,8 +230,8 @@ def game_won():
     button_font = pygame.font.Font(None, 80)
     # initialize background
     screen.blit(win_image, win_image.get_rect(topleft=(0, 0)))
-    screen.blit(miku4_outline, (100, 200))
-    screen.blit(miku4_img, (100, 200))
+    screen.blit(miku4_outline, (250, 200))
+    screen.blit(miku4_img, (250, 200))
     # initialize game_won
     win_surface = win_text.render("Game Won <3", 0, "white")
     win_rectangle = win_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 150))
@@ -241,7 +243,7 @@ def game_won():
     # surface for the win
     win_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
     win_surface.fill("palevioletred1")
-    win_surface.blit(exit_text, (200, 200))
+    win_surface.blit(exit_text, (10, 10))
     win_rectangle = win_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 170))
 
     # glues the surfaces to the rects to make sure they are visible on play
@@ -261,7 +263,7 @@ def game_won():
 
 def game_over():
 
-    orig_image = pygame.image.load("trees.jpg")
+    orig_image = pygame.image.load("treedark.jpg")
     end_image = pygame.transform.scale(orig_image, (800,600))
     #initialize font
     end_text = pygame.font.Font(None, 115)
