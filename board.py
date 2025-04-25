@@ -35,7 +35,7 @@ class Board:
         y = 100 + ((col-100)//40) * 40
         print(self.board)
         if 200<=x<=520 and 100<=y<=420:
-            pygame.draw.line(self.screen, "red", (x,y), (x,y+40), 5)
+            pygame.draw.line(self.screen, "indianred", (x,y), (x,y+40), 5)
             pygame.draw.line(self.screen, "indianred", (x+40,y), (x+40,y+40), 5)
             pygame.draw.line(self.screen, "indianred", (x,y), (x+40,y), 5)
             pygame.draw.line(self.screen, "indianred", (x,y+40), (x+40,y+40), 5)
@@ -57,16 +57,19 @@ class Board:
         return None
 
     def clear(self):
-        #to do later
-        print("Clear val")
-        
+        self.board = None
+
+    def sketch(self, value):
+        pass
+
     def place_number(self, value):
         self.board[y][x] = value
         self.draw()
 
     def reset_to_original(self):
-        #to do later
-        print("reset")
+        self.clear()
+        self.board = generate_sudoku(9, self.difficulty)
+        self.draw()
 
     def is_full(self):
         for i in self.board:
@@ -77,19 +80,23 @@ class Board:
     def update_board(self):
         self.draw()
 
-
     def find_empty(self):
         #to do later
         print("empty board")
 
-
     def check_board(self):
         tempObj = SudokuGenerator(9, 0)
         tempObj.board = self.board
+
+        for row in tempObj.board:
+            print(row)
         for i in range(len(tempObj.board)):
             for j in range(len(tempObj.board[0])):
-                if(not tempObj.is_valid(i, j, tempObj.board[i][j])):
+                num = tempObj.board[i][j] #1 whole hour of this game telling me my sudoku solution is wrong I'm so done be generous please meow
+                tempObj.board[i][j] = 0 #pycharm my best friend :(
+                if not tempObj.is_valid(i, j, num):
                     return False
+                tempObj.board[i][j] = num
         return True
 
 
