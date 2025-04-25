@@ -178,10 +178,19 @@ def in_progress(difficulty):
                     activeClick = False
                     x = ((clickedCords[0] - 200) // 40)
                     y = ((clickedCords[1] - 100) // 40)
-                    if (start_board.board[y][x] == 0):
+                    start_board.select(clickedCords[0], clickedCords[1]) #Took this out of the if statement below; now you can click anywhere :)
+                    if (original_board[y][x] == 0):
                         activeClick = True
-                        start_board.select(clickedCords[0], clickedCords[1])
                         print("Activated")
+                # elif start_board.click(event.pos[0], event.pos[1]) != False:    THIS old code lets you select any cell but also breaks it and lets u edit them...
+                #     in_progress_menu()
+                #     clickedCords = start_board.click(event.pos[0],event.pos[1])
+                #     start_board.select(clickedCords[0], clickedCords[1])
+                #     x = ((clickedCords[0]-200)//40)
+                #     y = ((clickedCords[1]-100)//40)
+                #     if(start_board[y][x] == 0):
+                #         activeClick = True
+                #         print("Activated")
 
 
                 else:
