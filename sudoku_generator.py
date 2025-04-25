@@ -22,6 +22,7 @@ class SudokuGenerator:
 	Return:
 	None
     '''
+    
     def __init__(self, row_length, removed_cells):
         self.row_length = row_length #would be 9
         self.removed_cells = removed_cells
@@ -98,23 +99,13 @@ class SudokuGenerator:
     def valid_in_box(self, row_start, col_start, num):
         end_row = row_start + 3
         end_col = col_start + 3
-        i = row_start
         
-        while i < end_row:
-            if(i >= len(self.board)):
-                i+=1
-                continue
-            j = col_start
-            while j < end_col:
-                if(j >= len(self.board[i])):
-                    j+=1
-                    continue
-                if(self.board[i][j] == num):
-                    return False #temp
-                j+=1
-                
-            i+=1
-                
+        temp = []
+        for i in range(row_start, end_row):
+            for j in range(col_start, end_col):
+                temp.append(self.board[i][j])
+        if(num in temp):
+            return False
         return True
     '''
     Determines if it is valid to enter num at (row, col) in the board
@@ -127,10 +118,46 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def is_valid(self, row, col, num): # Calls valid_in_row, valid_in_col, valid_in_box
-        if(self.valid_in_box(row,col,num) and self.valid_in_col(col, num) and self.valid_in_row(row, num)):
-            return True
+        if 0<=row<3:
+            if 0<=col<3:
+                boxRow = 0
+                boxCol = 0
+            elif 3<=col<6:
+                boxRow = 0
+                boxCol = 3
+            else:
+                boxRow = 0
+                boxCol = 6
+        elif 3<=row<6:
+            if 0<=col<3:
+                boxRow = 3
+                boxCol = 0
+            elif 3<=col<6:
+                boxRow = 3
+                boxCol = 3
+            else:
+                boxRow = 3
+                boxCol = 6
         else:
+            if 0<=col<3:
+                boxRow = 6
+                boxCol = 0
+            elif 3<=col<6:
+                boxRow = 6
+                boxCol = 3
+            else:
+                boxRow = 6
+                boxCol = 6
+        if(not self.valid_in_box(boxRow,boxCol,num)):
+            print("Error: Box")
             return False
+        elif(not self.valid_in_col(col, num)):
+            print("Error: Col")
+            return False
+        elif(not self.valid_in_row(row,num)):
+            print("Error: row")
+            return False
+        return True
 
     '''
     Fills the specified 3x3 box with values
@@ -147,6 +174,7 @@ class SudokuGenerator:
         random.shuffle(nums)  # Shuffle to get random order
 
         index = 0
+        print("Index: " + f"{index}")
         for i in range(row_start, row_start + 3):
             for j in range(col_start, col_start + 3):
                 self.board[i][j] = nums[index]
@@ -229,28 +257,17 @@ class SudokuGenerator:
 	Return: None
     '''
     def remove_cells(self):
-        i = 0
-        x= list(range(0, 9))
-        random.shuffle(x)  # Shuffle to get random order
-        y = list(range(0, 9))
-        random.shuffle(y)  # Shuffle to get random order
-        indexX = 0
-        indexY = 0
-        while i < self.removed_cells:
-            if(self.board[x[indexX]][y[indexY]] != 0):
-                self.board[x[indexX]][y[indexY]] = 0
-                i+=1
-            elif(indexX < len(x)-1 and indexY < len(y)-1):
-                indexX +=1
-                indexY += 1
-            else:
-                print("REset")
-                random.shuffle(x)
-                random.shuffle(y)
-                indexX = 0
-                indexY =0 
-            if(i >= self.removed_cells):
-                break
+        self.print_board()
+        non_zero_cells = [(i, j) for i in range(9) for j in range(9) if self.board[i][j] != 0]
+
+        if len(non_zero_cells) < self.removed_cells:
+            raise ValueError("Not enough non-zero cells to remove.")
+
+        cells_to_remove = random.sample(non_zero_cells, self.removed_cells)
+
+        for i, j in cells_to_remove:
+            self.board[i][j] = 0
+            
 
 '''
 DO NOT CHANGE

@@ -142,7 +142,7 @@ def in_progress():
                    
                     activeClick = False
                     clickedCords = start_board.click(event.pos[0],event.pos[1])
-                    currentCell = Cell(0, (clickedCords[0]* 40) + 220, (clickedCords[1] * 40) + 120, start_board.screen)
+                    
                     x = ((clickedCords[0]-200)//40) 
                     y = ((clickedCords[1]-100)//40)
                     if(start_board.board[y][x] == 0):
@@ -157,7 +157,7 @@ def in_progress():
                 temp = event.key-48
                 #adding a cell board
                 if(temp > 0 and temp < 10 and activeClick):
-                    currentCell.set_cell_value(temp)
+                    currentCell = Cell(temp, clickedCords[0], clickedCords[1], start_board.screen)
                     currentCell.draw()
                     start_board.draw()
                     print("Commited")
