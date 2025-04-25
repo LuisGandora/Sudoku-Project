@@ -57,16 +57,14 @@ class Board:
         return None
 
     def clear(self):
-        #to do later
-        print("Clear val")
+        self.board = None
         
     def place_number(self, value):
         self.board[y][x] = value
         self.draw()
 
     def reset_to_original(self):
-        #to do later
-        print("reset")
+        self.clear()
 
     def is_full(self):
         for i in self.board:

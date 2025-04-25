@@ -149,8 +149,6 @@ def in_progress():
                         start_board.select(clickedCords[0], clickedCords[1])
                         activeClick = True
                         print("Activated")
-                
-                    
                 else:
                     sys.exit()
             if event.type == pygame.KEYDOWN and activeClick:
