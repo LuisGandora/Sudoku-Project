@@ -110,11 +110,11 @@ def in_progress_menu():
     screen.fill("thistle2")
 
     # initialize text for reset, restart, exit buttons
-    miku2 = pygame.image.load("sakura miku 2.png")
-    miku2_img = pygame.transform.scale(miku2, (300, 150))
+    miku2 = pygame.image.load("sakura miku 7.png")
+    miku2_img = pygame.transform.scale(miku2, (310, 200))
     miku2_outline = get_outline(miku2_img, color=(255, 255, 255))
-    screen.blit(miku2_outline, (500, 450))
-    screen.blit(miku2_img, (500, 450))
+    screen.blit(miku2_outline, (-5, 425))
+    screen.blit(miku2_img, (-5, 425))
     #initialize text for reset, restart, exit buttons
     reset_text = button_font.render("Reset", 0, (255, 255, 255))  # 30empty
     restart_text = button_font.render("Restart", 0, (255, 255, 255))  # 40empty
@@ -221,15 +221,15 @@ def game_won():
     orig_image = pygame.image.load("cherry blosoom.jpg")
     win_image = pygame.transform.scale(orig_image, (800, 600))
     miku4 = pygame.image.load("sakura miku 4.png")
-    miku4_img = pygame.transform.scale(miku4, (400, 500))
+    miku4_img = pygame.transform.scale(miku4, (300, 400))
     miku4_outline = get_outline(miku4_img, color=(255, 255, 255))
     # initialize font
     win_text = pygame.font.Font(None, 115)
     button_font = pygame.font.Font(None, 80)
     # initialize background
     screen.blit(win_image, win_image.get_rect(topleft=(0, 0)))
-    screen.blit(miku4_outline, (200, 150))
-    screen.blit(miku4_img, (200, 150))
+    screen.blit(miku4_outline, (100, 200))
+    screen.blit(miku4_img, (100, 200))
     # initialize game_won
     win_surface = win_text.render("Game Won <3", 0, "white")
     win_rectangle = win_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 150))
@@ -241,8 +241,8 @@ def game_won():
     # surface for the win
     win_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
     win_surface.fill("palevioletred1")
-    win_surface.blit(exit_text, (500, 500))
-    win_rectangle = win_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 5))
+    win_surface.blit(exit_text, (200, 200))
+    win_rectangle = win_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 170))
 
     # glues the surfaces to the rects to make sure they are visible on play
     screen.blit(win_surface, win_rectangle)
@@ -261,7 +261,7 @@ def game_won():
 
 def game_over():
 
-    orig_image = pygame.image.load("tree.jpg")
+    orig_image = pygame.image.load("trees.jpg")
     end_image = pygame.transform.scale(orig_image, (800,600))
     #initialize font
     end_text = pygame.font.Font(None, 115)
@@ -280,7 +280,7 @@ def game_over():
     end_surface = pygame.Surface((restart_text.get_size()[0] + 20, restart_text.get_size()[1] + 20))
     end_surface.fill("palevioletred1")
     end_surface.blit(restart_text, (10, 10))
-    end_rectangle = end_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 5))
+    end_rectangle = end_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 170 ))
 
     # glues the surfaces to the rects to make sure they are visible on play
     screen.blit(end_surface, end_rectangle)
