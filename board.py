@@ -61,7 +61,6 @@ class Board:
 
     def sketch(self, value):
         pass
-        #later
 
     def place_number(self, value):
         self.board[y][x] = value
@@ -81,19 +80,23 @@ class Board:
     def update_board(self):
         self.draw()
 
-
     def find_empty(self):
         #to do later
         print("empty board")
 
-
     def check_board(self):
         tempObj = SudokuGenerator(9, 0)
         tempObj.board = self.board
+
+        for row in tempObj.board:
+            print(row)
         for i in range(len(tempObj.board)):
             for j in range(len(tempObj.board[0])):
-                if(not tempObj.is_valid(i, j, tempObj.board[i][j])):
+                num = tempObj.board[i][j] #1 whole hour of this game telling me my sudoku solution is wrong I'm so done be generous please meow
+                tempObj.board[i][j] = 0 #pycharm my best friend :(
+                if not tempObj.is_valid(i, j, num):
                     return False
+                tempObj.board[i][j] = num
         return True
 
 

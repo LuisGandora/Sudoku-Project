@@ -130,6 +130,8 @@ class SudokuGenerator:
     '''
 
     def is_valid(self, row, col, num):  # Calls valid_in_row, valid_in_col, valid_in_box
+        if num == 0:
+            return True
         if 0 <= row < 3:
             if 0 <= col < 3:
                 boxRow = 0
@@ -309,6 +311,5 @@ def generate_sudoku(size, removed):
     print(board)
     sudoku.remove_cells()  # call self.removed
     board = sudoku.get_board()
-    return board    
-
+    return board
 
