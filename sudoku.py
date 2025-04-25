@@ -138,6 +138,7 @@ def in_progress():
                 elif start_board.click(event.pos[0], event.pos[1]) != False:
                     in_progress_menu()
                     clickedCords = start_board.click(event.pos[0], event.pos[1])
+                    activeClick = False
                     x = ((clickedCords[0] - 200) // 40)
                     y = ((clickedCords[1] - 100) // 40)
                     if (start_board.board[y][x] == 0):
