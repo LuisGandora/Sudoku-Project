@@ -19,6 +19,18 @@ currentCell = None
 reset_board_button = pygame.Rect(0,0,0,0)   
 reset_button = pygame.Rect(0,0,0,0)
 quit_button = pygame.Rect(0,0,0,0)
+def get_outline(image,color=(0,0,0)):
+    """Returns an outlined image of the same size.  the image argument must
+    either be a convert surface with a set colorkey, or a convert_alpha
+    surface. color is the color which the outline will be drawn."""
+    rect = image.get_rect()
+    mask = pygame.mask.from_surface(image)
+    outline = mask.outline()
+    outline_image = pygame.Surface(rect.size).convert_alpha()
+    outline_image.fill((0,0,0,0))
+    for point in outline:
+        outline_image.set_at(point,color)
+    return outline_image
 
 #https://www.youtube.com/watch?v=U9H60qtw0Yg tutorial I followed
 def start_screen():
@@ -26,18 +38,23 @@ def start_screen():
 #hatsune miku :3
     orig_image = pygame.image.load("cherry blueson.jpg")
     title_image = pygame.transform.scale(orig_image, (800,600))
+    miku1 = pygame.image.load("sakura miku 1.png")
+    miku1_img = pygame.transform.scale(miku1, (200,300))
+    miku1_outline = get_outline(miku1_img, color = (255, 255, 255))
     #initialize font
     start_title = pygame.font.Font(None, 200)
     button_font = pygame.font.Font(None, 80)
     #initialize background
     screen.blit(title_image, title_image.get_rect(topleft=(0, 0)))
+    screen.blit(miku1_outline, (500,250))
+    screen.blit(miku1_img, (500,250))
     #Initialize Title
     title_surface = start_title.render("Sudoku", 0, 'white')
     title_rectangle = title_surface.get_rect(center =(WIDTH//2, HEIGHT//2 - 150))
     screen.blit(title_surface, title_rectangle)
 
     #initialize text for start and quit button
-    Easy_text = button_font.render("Easy", 0, (255,255,255)) #30empty
+    Easy_text = button_font.render("Easy", 0, (255,255,255))#30empty
     Medium_text = button_font.render("Medium", 0, (255,255,255))#40empty
     Hard_text = button_font.render("Hard", 0, (255,255,255))#50empty
 
@@ -45,6 +62,7 @@ def start_screen():
     #All of this makes the surfaces for the start and quit button
     easy_surface = pygame.Surface((Easy_text.get_size()[0]+20, Easy_text.get_size()[1] + 20))
     easy_surface.fill('palevioletred1')
+
     easy_surface.blit(Easy_text, (10,10))
     Medium_surface = pygame.Surface((Medium_text.get_size()[0]+20, Medium_text.get_size()[1] + 20))
     Medium_surface.fill('palevioletred1')
@@ -86,7 +104,11 @@ def in_progress_menu():
     button_font = pygame.font.Font(None, 40)
     #initialize background
     screen.fill("thistle2")
-
+    miku2 = pygame.image.load("sakura miku 2.png")
+    miku2_img = pygame.transform.scale(miku2, (400, 200))
+    miku2_outline = get_outline(miku2_img, color=(255, 255, 255))
+    screen.blit(miku2_outline, (500, 400))
+    screen.blit(miku2_img, (500, 400))
     #initialize text for reset, restart, exit buttons
     reset_text = button_font.render("Reset", 0, (255, 255, 255))  # 30empty
     restart_text = button_font.render("Restart", 0, (255, 255, 255))  # 40empty
@@ -212,7 +234,7 @@ def game_won():
 # lmao loser
 def game_over():
 
-    orig_image = pygame.image.load("cherry blueson.jpg")
+    orig_image = pygame.image.load("cherry-blossom-lke-thumb.jpg")
     end_image = pygame.transform.scale(orig_image, (800,600))
     #initialize font
     end_text = pygame.font.Font(None, 115)
