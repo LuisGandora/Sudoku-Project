@@ -73,7 +73,9 @@ class Board:
         print("reset")
 
     def is_full(self):
-        #to do later
+        for i in self.board:
+            if(0 in i):
+                return False
         return True
     
     def update_board(self):
@@ -84,8 +86,14 @@ class Board:
         #to do later
         print("empty board")
 
+
     def check_board(self):
-        #to do later
-        print("Board tuah")
+        tempObj = SudokuGenerator(9, 0)
+        tempObj.board = self.board
+        for i in range(len(tempObj.board)):
+            for j in range(len(tempObj.board[0])):
+                if(not tempObj.is_valid(i, j, tempObj.board[i][j])):
+                    return False
+        return True
 
 
