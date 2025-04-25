@@ -42,7 +42,7 @@ def start_screen():
     orig_image = pygame.image.load("cherry blueson.jpg")
     title_image = pygame.transform.scale(orig_image, (800,600))
     miku1 = pygame.image.load("sakura miku 1.png")
-    miku1_img = pygame.transform.scale(miku1, (200,300))
+    miku1_img = pygame.transform.scale(miku1, (250,350))
     miku1_outline = get_outline(miku1_img, color = (255, 255, 255))
     #initialize font
     title_image = pygame.transform.scale(orig_image, (800, 600))
@@ -76,7 +76,7 @@ def start_screen():
     Hard_surface.blit(Hard_text, (10, 10))
     Easy_rectangle = easy_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 5))
     Medium_rectangle = Medium_surface.get_rect(center=(
-    WIDTH // 2, HEIGHT // 2 + 105))  ##RECOMMEND CHANGING TO WIDTH BASED INSTEAD like -109,105 0,105 and 109,105
+    WIDTH // 2, HEIGHT // 2 + 105), width = 100)  ##RECOMMEND CHANGING TO WIDTH BASED INSTEAD like -109,105 0,105 and 109,105
     Hard_rectangle = Hard_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 205))
 
     # Essentially glues the surfaces to the rects to make sure they are visible on play
@@ -209,13 +209,18 @@ def in_progress(difficulty):
 
 
 def game_won():
-    orig_image = pygame.image.load("cherry blueson.jpg")
+    orig_image = pygame.image.load("cherry blosoom.jpg")
     win_image = pygame.transform.scale(orig_image, (800, 600))
+    miku4 = pygame.image.load("sakura miku 4.png")
+    miku4_img = pygame.transform.scale(miku4, (400, 500))
+    miku4_outline = get_outline(miku4_img, color=(255, 255, 255))
     # initialize font
     win_text = pygame.font.Font(None, 115)
     button_font = pygame.font.Font(None, 80)
     # initialize background
     screen.blit(win_image, win_image.get_rect(topleft=(0, 0)))
+    screen.blit(miku4_outline, (200, 150))
+    screen.blit(miku4_img, (200, 150))
     # initialize game_won
     win_surface = win_text.render("Game Won <3", 0, "white")
     win_rectangle = win_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 150))
@@ -227,7 +232,7 @@ def game_won():
     # surface for the win
     win_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
     win_surface.fill("palevioletred1")
-    win_surface.blit(exit_text, (10, 10))
+    win_surface.blit(exit_text, (500, 500))
     win_rectangle = win_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 5))
 
     # glues the surfaces to the rects to make sure they are visible on play
@@ -247,7 +252,7 @@ def game_won():
 
 def game_over():
 
-    orig_image = pygame.image.load("cherry-blossom-lke-thumb.jpg")
+    orig_image = pygame.image.load("tree.jpg")
     end_image = pygame.transform.scale(orig_image, (800,600))
     #initialize font
     end_text = pygame.font.Font(None, 115)
