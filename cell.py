@@ -13,9 +13,9 @@ class Cell:
     def set_sketched_value(self, value):
         cell_font = font.Font(None, 35)
         if(self.value > 0):
-            cell_text = cell_font.render(f"{value}", 0, 'black')
+            cell_text = cell_font.render(f"{value}", 0, 'gray')
         else:
-            cell_text = cell_font.render(" ", 0, 'black')
+            cell_text = cell_font.render(" ", 0, 'gray')
         cell_surface = Surface((30,30))
         cell_surface.fill("thistle2")
         cell_surface.blit(cell_text, cell_text.get_rect(center=(15,15)))

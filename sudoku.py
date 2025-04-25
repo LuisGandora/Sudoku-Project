@@ -16,7 +16,7 @@ currentCell = None
 
 # universal button
 reset_board_button = pygame.Rect(0, 0, 0, 0)
-reset_button = pygame.Rect(0, 0, 0, 0)
+restart_button = pygame.Rect(0, 0, 0, 0)
 quit_button = pygame.Rect(0, 0, 0, 0)
 
 
@@ -78,7 +78,7 @@ def start_screen():
 
 
 def in_progress_menu():
-    global reset_board_button, reset_button, quit_button
+    global reset_board_button, restart_button, quit_button
     # initialize font
     button_font = pygame.font.Font(None, 40)
     # initialize background
@@ -89,7 +89,7 @@ def in_progress_menu():
     restart_text = button_font.render("Restart", 0, (255, 255, 255))  # 40empty
     exit_text = button_font.render("Exit", 0, (255, 255, 255))  # 50empty
 
-    # makes the surfaces for the reset, reset and exit buttons
+    # makes the surfaces for the reset, restart and exit buttons
     reset_surface = pygame.Surface((reset_text.get_size()[0] + 20, reset_text.get_size()[1] + 20))
     reset_surface.fill("palevioletred1")
     reset_surface.blit(reset_text, (10, 10))
@@ -100,20 +100,23 @@ def in_progress_menu():
     exit_surface.fill("palevioletred1")
     exit_surface.blit(exit_text, (10, 10))
     reset_board_button = reset_surface.get_rect(center=(WIDTH // 2 - 209, HEIGHT // 2 + 225))
-    reset_button = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 225))
+    restart_button = restart_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 225))
     quit_button = exit_surface.get_rect(center=(WIDTH // 2 + 190, HEIGHT // 2 + 225))
 
     # glues the surfaces to the rects to make sure they are visible on play
     screen.blit(reset_surface, reset_board_button)
-    screen.blit(restart_surface, reset_button)
+    screen.blit(restart_surface, restart_button)
     screen.blit(exit_surface, quit_button)
 
 
-def in_progress():
+def in_progress(difficulty):
     global activeClick, currentCell
     print("InProgress")
     start_board = Board(WIDTH, HEIGHT, screen, difficulty)
     start_board.board = generate_sudoku(9, start_board.difficulty)
+    original_board = []
+    for row in start_board.board:
+        original_board.append(row[:])
 
     # Highly recommend switching to Universal reset_text
     in_progress_menu()
@@ -130,9 +133,12 @@ def in_progress():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:  # Checks which button you press
                 if reset_board_button.collidepoint(event.pos):
-                    return  # change later
-                elif reset_button.collidepoint(event.pos):
-                    return
+                    start_board.board = [row[:] for row in original_board]
+                    currentCell = None
+                    activeClick = False
+                    start_board.draw()
+                elif restart_button.collidepoint(event.pos):
+                    return "restart"
                 elif quit_button.collidepoint(event.pos):
                     sys.exit()
                 elif start_board.click(event.pos[0], event.pos[1]) != False:
@@ -163,6 +169,11 @@ def in_progress():
                     currentCell = None
                     activeClick = False
                     start_board.draw()
+                    if start_board.is_valid() is False:
+                        return "Game Lost"
+
+                    if start_board.is_full() is True and start_board.check_board() is True:
+                        return "Game Won"
 
         pygame.display.update()
 
@@ -175,15 +186,15 @@ def game_won():
     button_font = pygame.font.Font(None, 80)
     # initialize background
     screen.blit(win_image, win_image.get_rect(topleft=(0, 0)))
-    # initialize game_over
+    # initialize game_won
     win_surface = win_text.render("Game Won <3", 0, "white")
     win_rectangle = win_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 150))
     screen.blit(win_surface, win_rectangle)
 
-    # initialize text for restart button
+    # initialize text for exit button
     exit_text = button_font.render("Exit", 0, (255, 255, 255))  # 30empty
 
-    # surface for the restart button
+    # surface for the win
     win_surface = pygame.Surface((exit_text.get_size()[0] + 20, exit_text.get_size()[1] + 20))
     win_surface.fill("palevioletred1")
     win_surface.blit(exit_text, (10, 10))
@@ -192,7 +203,7 @@ def game_won():
     # glues the surfaces to the rects to make sure they are visible on play
     screen.blit(win_surface, win_rectangle)
 
-    # game_over logic
+    # game_won logic
     while True:
         for event in pygame.event.get():  # waits for user to input something
             if event.type == pygame.QUIT:  # if escape, exit game
@@ -244,9 +255,9 @@ def game_over():
 def main():
     while True:
         difficulty = start_screen()
-        in_progress()
-        game_won()  # reposition later; just to check
-        game_over()  # reposition later; just to check
+        in_progress(difficulty)
+        if in_progress(difficulty) == "restart":
+            continue
 
 
 if __name__ == "__main__":
