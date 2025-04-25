@@ -75,8 +75,7 @@ def start_screen():
     Hard_surface.fill('palevioletred1')
     Hard_surface.blit(Hard_text, (10, 10))
     Easy_rectangle = easy_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 5))
-    Medium_rectangle = Medium_surface.get_rect(center=(
-    WIDTH // 2, HEIGHT // 2 + 105), width = 100)  ##RECOMMEND CHANGING TO WIDTH BASED INSTEAD like -109,105 0,105 and 109,105
+    Medium_rectangle = Medium_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 105))  ##RECOMMEND CHANGING TO WIDTH BASED INSTEAD like -109,105 0,105 and 109,105
     Hard_rectangle = Hard_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 205))
 
     # Essentially glues the surfaces to the rects to make sure they are visible on play
@@ -164,16 +163,14 @@ def in_progress(difficulty):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:  # Checks which button you press
                 if reset_board_button.collidepoint(event.pos):
-                    # start_board.board = [row[:] for row in original_board]
-                    # currentCell = None
-                    # activeClick = False
-                    # start_board.draw()
-                    return "Game Over"
+                    start_board.board = [row[:] for row in original_board]
+                    currentCell = None
+                    activeClick = False
+                    start_board.draw()
                 elif restart_button.collidepoint(event.pos):
                     return "restart"
                 elif quit_button.collidepoint(event.pos):
-                    return "Game Won"
-                    # sys.exit()
+                    sys.exit()
                 elif start_board.click(event.pos[0], event.pos[1]) != False:
                     in_progress_menu()
                     clickedCords = start_board.click(event.pos[0], event.pos[1])
