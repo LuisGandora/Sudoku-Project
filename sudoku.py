@@ -251,10 +251,11 @@ def game_won():
     while True:
         for event in pygame.event.get():  # waits for user to input something
             if event.type == pygame.QUIT:  # if escape, exit game
-                return False  # exits main "While True" loop
+                sys.exit() # exits main "While True" loop
             if event.type == pygame.MOUSEBUTTONDOWN:  # checks for exit button press
                 if win_rectangle.collidepoint(event.pos):
-                    return False  # exits main "While True" loop
+                    sys.exit()
+                    #return False  # exits main "While True" loop
 
         pygame.display.update()
 
