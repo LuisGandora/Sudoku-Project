@@ -69,6 +69,8 @@ class Board:
 
     def reset_to_original(self):
         self.clear()
+        self.board = generate_sudoku(9, self.difficulty)
+        self.draw()
 
     def is_full(self):
         for i in self.board:

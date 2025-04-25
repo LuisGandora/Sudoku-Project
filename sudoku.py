@@ -124,15 +124,15 @@ def in_progress():
     while True:
         start_board.update_board()  # later
         if (currentCell != None):
-            currentCell.draw()
+            currentCell.set_sketched_value(currentCell.value)
         for event in pygame.event.get():  # essentially waits for user to input something
             if event.type == pygame.QUIT:  # If Escape, exit game
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:  # Checks which button you press
                 if reset_board_button.collidepoint(event.pos):
-                    return  # change later
+                    start_board.reset_to_original()
                 elif reset_button.collidepoint(event.pos):
-                    return
+                    return 1
                 elif quit_button.collidepoint(event.pos):
                     sys.exit()
                 elif start_board.click(event.pos[0], event.pos[1]) != False:
@@ -153,16 +153,20 @@ def in_progress():
                 temp = event.key - 48
                 # adding a cell board
                 if (temp > 0 and temp < 10 and activeClick):
-                    currentCell = Cell(temp, 200 + ((clickedCords[0]-200)//40) * 40+20, 100 + ((clickedCords[1]-100)//40) * 40+20,
+                    currentCell = Cell(0, 200 + ((clickedCords[0]-200)//40) * 40+20, 100 + ((clickedCords[1]-100)//40) * 40+20,
                                        start_board.screen)
-                    currentCell.draw()
+                    currentCell.set_sketched_value(temp)
                     start_board.draw()
                     print("Commited")
                 if event.key == pygame.K_RETURN and activeClick:
-                    start_board.place_number(currentCell.value)
+                    if(currentCell != None):
+                        start_board.place_number(currentCell.value)
                     currentCell = None
                     activeClick = False
-                    start_board.draw()
+                    if(start_board.is_full()):
+                        if(start_board.check_board()):
+                            return 2
+                        return 3
 
         pygame.display.update()
 
@@ -199,7 +203,7 @@ def game_won():
                 return False  # exits main "While True" loop
             if event.type == pygame.MOUSEBUTTONDOWN:  # checks for exit button press
                 if win_rectangle.collidepoint(event.pos):
-                    return False  # exits main "While True" loop
+                   sys.exit()
 
         pygame.display.update()
 
@@ -244,9 +248,14 @@ def game_over():
 def main():
     while True:
         difficulty = start_screen()
-        in_progress()
-        game_won()  # reposition later; just to check
-        game_over()  # reposition later; just to check
+        won = in_progress()
+        if(won == 1):
+            continue
+        elif(won ==2):
+            game_won()  # reposition later; just to check
+        else:
+            game_over()  # reposition later; just to check
+            continue
 
 
 if __name__ == "__main__":
