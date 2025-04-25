@@ -61,6 +61,7 @@ class Board:
         print("Clear val")
 
     def sketch(self, value):
+        pass
         #later
 
     def place_number(self, value):
