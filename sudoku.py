@@ -111,10 +111,10 @@ def in_progress_menu():
 
     # initialize text for reset, restart, exit buttons
     miku2 = pygame.image.load("sakura miku 2.png")
-    miku2_img = pygame.transform.scale(miku2, (400, 200))
+    miku2_img = pygame.transform.scale(miku2, (300, 150))
     miku2_outline = get_outline(miku2_img, color=(255, 255, 255))
-    screen.blit(miku2_outline, (500, 400))
-    screen.blit(miku2_img, (500, 400))
+    screen.blit(miku2_outline, (500, 450))
+    screen.blit(miku2_img, (500, 450))
     #initialize text for reset, restart, exit buttons
     reset_text = button_font.render("Reset", 0, (255, 255, 255))  # 30empty
     restart_text = button_font.render("Restart", 0, (255, 255, 255))  # 40empty
